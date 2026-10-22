@@ -146,15 +146,15 @@
 </head>
 <body>
 
-    <!-- Invisible video frame streaming background audio bypass layer -->
+    <!-- Embedded background audio bypass framework -->
     <video id="bgMusic" src="https://catbox.moe" loop style="display:none;" playsinline></video>
 
-    <!-- STEP 1: Verification Gate -->
+    <!-- STEP 1: Verification Gate (Updated to TikTok Name) -->
     <div id="step1" class="card">
         <h2>Security Check! 🔐</h2>
-        <p class="center-text">To verify if it's really you... what is your grandpa's name?</p>
-        <input type="text" id="grandpaInput" placeholder="Enter his name here...">
-        <button onclick="verifyGrandpa()">Verify Me</button>
+        <p class="center-text">To verify if it's really you... what is your TikTok account name?</p>
+        <input type="text" id="tiktokInput" placeholder="Enter your TikTok name...">
+        <button onclick="verifyTikTok()">Verify Me</button>
     </div>
 
     <!-- STEP 2: Real-time Typewriter Letter Content Screen -->
@@ -204,10 +204,12 @@
         <button onclick="processFinalQuestion()">Send to Adoni 🚀</button>
     </div>
 
-    <!-- STEP 7: Completed Success Notification Layout -->
+    <!-- STEP 7: Completed Success Layout (Updated with Meeting Request) -->
     <div id="step7" class="card hidden">
         <h2>Sent! 😜😁🎉</h2>
-        <p class="center-text">Your message has been securely beamed over to Adoni! Happy Birthday once again! Now go study! ❤️</p>
+        <p class="center-text">Your message has been securely beamed over to Adoni!</p>
+        <p class="center-text" style="font-weight: bold; color: #d11a5b;">Oh my god, by the way, you are just that much beautiful! ✨ Can you please meet up with me together with your friend soon? Let's hang out! </p>
+        <p class="center-text">Happy Birthday once again! Now go study! ❤️</p>
     </div>
 
     <script>
@@ -216,8 +218,10 @@
 
         function startMusic() {
             const music = document.getElementById('bgMusic');
-            music.muted = false;
-            music.play().catch(e => console.log("Audio target triggered after event"));
+            if (music) {
+                music.muted = false;
+                music.play().catch(e => console.log("Audio target triggered after event"));
+            }
         }
 
         function spawnConfetti() {
@@ -231,21 +235,15 @@
             }
         }
 
-        function verifyGrandpa() {
-            const name = document.getElementById('grandpaInput').value.trim().toLowerCase();
+        function verifyTikTok() {
+            const inputField = document.getElementById('tiktokInput');
+            if (!inputField) return;
             
-            if(name !== "taye") {
+            const name = inputField.value.trim().toLowerCase();
+            
+            // Strictly locks verification to her TikTok name "hanani"
+            if(name !== "hanani") {
                 alert("❌ Hmmm, that doesn't seem right! Try again.");
                 return;
             }
             
-            startMusic();
-            spawnConfetti();
-            
-            document.body.style.backgroundImage = "url('" + backPhotoUrl + "')";
-            
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
-            
-            typeWriter(longWishesText, 0, document.getElementById('typewriterText'), function() {
-                document.getElementById('nextBtnStep2').style.display = 'block';
