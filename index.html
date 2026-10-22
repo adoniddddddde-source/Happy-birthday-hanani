@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: #ffe4e1;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.6)), url('https://ibb.co');
             color: #333;
             display: flex;
             justify-content: center;
@@ -61,7 +61,7 @@
         .center-text {
             text-align: center;
         }
-        input[type="text"], textarea {
+        textarea {
             width: 100%;
             padding: 14px;
             border: 2px solid #ffb6c1;
@@ -71,7 +71,7 @@
             outline: none;
             background: #fffafa;
         }
-        input[type="text"]:focus, textarea:focus {
+        textarea:focus {
             border-color: #d11a5b;
         }
         button {
@@ -142,23 +142,36 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+        /* Style adjustments for start overlay box layout */
+        .start-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffe4e1;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Video tag running background audio stream safely -->
+    <!-- Invisible video frame running background audio safely -->
     <video id="bgMusic" src="https://catbox.moe" loop style="display:none;" playsinline></video>
 
-    <!-- STEP 1: Verification Gate -->
-    <div id="step1" class="card">
-        <h2>Security Check! 🔐</h2>
-        <p class="center-text">To verify if it's really you... what is your TikTok account name?</p>
-        <input type="text" id="tiktokInput" placeholder="Enter your TikTok name...">
-        <button onclick="verifyTikTok()">Verify Me</button>
+    <!-- STEP 0: Smooth Entry Intermission (Bypasses Browser Audio Security Blocks) -->
+    <div id="startOverlay" class="start-overlay">
+        <div class="card">
+            <h2>Hey Hanani! ✨</h2>
+            <p class="center-text">I made something special for your birthday. Tap below to unwrap it! ❤️</p>
+            <button onclick="openWebsite()">Open Surprise 🎁</button>
+        </div>
     </div>
 
-    <!-- STEP 2: Typewriter Animated Letter Screen -->
-    <div id="step2" class="card hidden">
+    <!-- STEP 1: Real-time Typewriter Letter Screen with Background Image -->
+    <div id="step2" class="card">
         <h2>Happy Birthday! 🎉🎂</h2>
         <div class="scroll-box">
             <p id="typewriterText" class="typing-effect"></p>
@@ -166,7 +179,7 @@
         <button id="nextBtnStep2" onclick="nextStep(2, 3)" style="display:none;">Next Wish ✨</button>
     </div>
 
-    <!-- STEP 3: Second Reading Wish Page Layout -->
+    <!-- STEP 2: Second Reading Wish Page Layout -->
     <div id="step3" class="card hidden">
         <h2>Wishes for You ✨🌸</h2>
         <div class="scroll-box">
@@ -177,7 +190,7 @@
         <button onclick="nextStep(3, 4)">Next 🎁</button>
     </div>
 
-    <!-- STEP 4: The Gift Trap matrix Box -->
+    <!-- STEP 3: The Gift Trap matrix Box -->
     <div id="step4" class="card hidden">
         <h2>Pick Your Birthday Gift! 🎁</h2>
         <p class="center-text">Choose wisely, you can only pick one option:</p>
@@ -189,14 +202,14 @@
         </div>
     </div>
 
-    <!-- STEP 5: Educational Exam Reminder Intermission -->
+    <!-- STEP 4: Educational Exam Reminder Intermission -->
     <div id="step5" class="card hidden">
         <h2>Omg sweetheart! 🥺📚</h2>
         <p class="center-text">By the way, you may have a test soon, so go and study for it! You better study hard right after looking at this. I wish you the absolute best!</p>
         <button onclick="nextStep(5, 6)">Next 📚</button>
     </div>
 
-    <!-- STEP 6: User Dialogue Message Portal -->
+    <!-- STEP 5: User Dialogue Message Portal -->
     <div id="step6" class="card hidden">
         <h2 id="questionTitle">One quick thing... 🤔</h2>
         <p id="questionPrompt" class="center-text">Is there something that you wanted to say to me but haven't had the opportunity to say yet?</p>
@@ -204,7 +217,7 @@
         <button onclick="processFinalQuestion()">Send to Adoni 🚀</button>
     </div>
 
-    <!-- STEP 7: Completed Success Layout Screen -->
+    <!-- STEP 6: Completed Success Layout Screen -->
     <div id="step7" class="card hidden">
         <h2>Sent! 😜😁🎉</h2>
         <p class="center-text">Your message has been securely beamed over to Adoni!</p>
@@ -213,39 +226,25 @@
     </div>
 
     <script>
-        const backPhotoUrl = "https://ibb.co";
         const longWishesText = "Happy Birthday to my crazy, fun, fabulous bestie. I hope you had a great day and the year ahead is the best yet!\n\nI am so grateful for your friendship and all the times we've shared together....... Did uh remember the date when we started our friendship probably not right?\n\nLove you my partner in crime birthday girl once again Happy birthday my Geso bestie ❤️";
 
-        function startMusic() {
+        function openWebsite() {
+            // Hide the button container overlay seamlessly
+            document.getElementById('startOverlay').style.display = 'none';
+            
+            // Instantly trigger music, confetti, and script animations
             const music = document.getElementById('bgMusic');
             if (music) {
                 music.muted = false;
-                music.play().catch(e => console.log("Audio pipeline initialized"));
+                music.play().catch(e => console.log("Audio pipeline active"));
             }
+            
+            spawnConfetti();
+            
+            typeWriter(longWishesText, 0, document.getElementById('typewriterText'), function() {
+                const nextBtn = document.getElementById('nextBtnStep2');
+                if (nextBtn) nextBtn.style.display = 'block';
+            });
         }
 
         function spawnConfetti() {
-            for (let i = 0; i < 40; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.backgroundColor = ['#ff6b8b','#f2d74e','#6bcbff','#4eff91','#b14eff'][Math.floor(Math.random() * 5)];
-                document.body.appendChild(confetti);
-            }
-        }
-
-        function verifyTikTok() {
-            const inputField = document.getElementById('tiktokInput');
-            if (!inputField) return;
-            
-            const name = inputField.value.trim().toLowerCase();
-            
-            if(name !== "hanani") {
-                alert("❌ Hmmm, that doesn't seem right! Try again.");
-                return;
-            }
-            
-            startMusic();
-            spawnConfetti();
-            
