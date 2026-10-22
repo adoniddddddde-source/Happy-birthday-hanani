@@ -118,13 +118,11 @@
             margin-bottom: 15px;
             width: 100%;
         }
-        /* Celebration Assets */
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
             background-color: #f2d74e;
-            position: absolute;
             animation: fall 3s linear infinite;
             top: -10px;
             z-index: 1;
@@ -137,7 +135,6 @@
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
-        /* Custom Typing Layout Effect */
         .typing-effect::after {
             content: '|';
             animation: blink 1s infinite;
@@ -149,8 +146,8 @@
 </head>
 <body>
 
-    <!-- Embedded Audio Module -->
-    <audio id="bgMusic" src="https://files.catbox.moe/6b8nk5.mp4" loop></audio>
+    <!-- Invisible video frame streaming background audio bypass layer -->
+    <video id="bgMusic" src="https://catbox.moe" loop style="display:none;" playsinline></video>
 
     <!-- STEP 1: Verification Gate -->
     <div id="step1" class="card">
@@ -160,7 +157,7 @@
         <button onclick="verifyGrandpa()">Verify Me</button>
     </div>
 
-    <!-- STEP 2: Real-time Typing Letter Section with Your Photo Background Backdrop -->
+    <!-- STEP 2: Real-time Typewriter Letter Content Screen -->
     <div id="step2" class="card hidden">
         <h2>Happy Birthday! 🎉🎂</h2>
         <div class="scroll-box">
@@ -169,7 +166,7 @@
         <button id="nextBtnStep2" onclick="nextStep(2, 3)" style="display:none;">Next Wish ✨</button>
     </div>
 
-    <!-- STEP 3: Second Long Wish Page -->
+    <!-- STEP 3: Second Reading Wish Page Layout -->
     <div id="step3" class="card hidden">
         <h2>Wishes for You ✨🌸</h2>
         <div class="scroll-box">
@@ -180,7 +177,7 @@
         <button onclick="nextStep(3, 4)">Next 🎁</button>
     </div>
 
-    <!-- STEP 4: The Gift Trap Choice -->
+    <!-- STEP 4: The Gift Trap Layout Box -->
     <div id="step4" class="card hidden">
         <h2>Pick Your Birthday Gift! 🎁</h2>
         <p class="center-text">Choose wisely, you can only pick one option:</p>
@@ -192,14 +189,14 @@
         </div>
     </div>
 
-    <!-- STEP 5: Study Reminder -->
+    <!-- STEP 5: Educational Exam Reminder Intermission -->
     <div id="step5" class="card hidden">
         <h2>Omg sweetheart! 🥺📚</h2>
         <p class="center-text">By the way, you may have a test soon, so go and study for it! You better study hard right after looking at this. I wish you the absolute best!</p>
         <button onclick="nextStep(5, 6)">Next 📚</button>
     </div>
 
-    <!-- STEP 6: Opportunity To Speak -->
+    <!-- STEP 6: User Dialogue Message Portal -->
     <div id="step6" class="card hidden">
         <h2 id="questionTitle">One quick thing... 🤔</h2>
         <p id="questionPrompt" class="center-text">Is there something that you wanted to say to me but haven't had the opportunity to say yet?</p>
@@ -207,7 +204,7 @@
         <button onclick="processFinalQuestion()">Send to Adoni 🚀</button>
     </div>
 
-    <!-- STEP 7: Final Screen -->
+    <!-- STEP 7: Completed Success Notification Layout -->
     <div id="step7" class="card hidden">
         <h2>Sent! 😜😁🎉</h2>
         <p class="center-text">Your message has been securely beamed over to Adoni! Happy Birthday once again! Now go study! ❤️</p>
@@ -219,7 +216,8 @@
 
         function startMusic() {
             const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log("Audio play deferred"));
+            music.muted = false;
+            music.play().catch(e => console.log("Audio target triggered after event"));
         }
 
         function spawnConfetti() {
@@ -244,9 +242,10 @@
             startMusic();
             spawnConfetti();
             
-            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.6)), url('${backPhotoUrl}')`;
+            document.body.style.backgroundImage = "url('" + backPhotoUrl + "')";
+            
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             
-            // Run the special typewriter feature
             typeWriter(longWishesText, 0, document.getElementById('typewriterText'), function() {
+                document.getElementById('nextBtnStep2').style.display = 'block';
