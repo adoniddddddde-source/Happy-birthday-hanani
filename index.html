@@ -149,7 +149,7 @@
     <!-- Embedded background audio bypass framework -->
     <video id="bgMusic" src="https://catbox.moe" loop style="display:none;" playsinline></video>
 
-    <!-- STEP 1: Verification Gate (Updated to TikTok Name) -->
+    <!-- STEP 1: Verification Gate (Asking for TikTok Account Name) -->
     <div id="step1" class="card">
         <h2>Security Check! 🔐</h2>
         <p class="center-text">To verify if it's really you... what is your TikTok account name?</p>
@@ -204,11 +204,11 @@
         <button onclick="processFinalQuestion()">Send to Adoni 🚀</button>
     </div>
 
-    <!-- STEP 7: Completed Success Layout (Updated with Meeting Request) -->
+    <!-- STEP 7: Completed Success Layout (Meeting Request Screen) -->
     <div id="step7" class="card hidden">
         <h2>Sent! 😜😁🎉</h2>
         <p class="center-text">Your message has been securely beamed over to Adoni!</p>
-        <p class="center-text" style="font-weight: bold; color: #d11a5b;">Oh my god, by the way, you are just that much beautiful! ✨ Can you please meet up with me together with your friend soon? Let's hang out! </p>
+        <p class="center-text" style="font-weight: bold; color: #d11a5b; margin: 15px 0;">Oh my god, by the way, you are just that much beautiful! ✨ Can you please meet up with me together with your friend soon? Let's hang out!</p>
         <p class="center-text">Happy Birthday once again! Now go study! ❤️</p>
     </div>
 
@@ -220,7 +220,7 @@
             const music = document.getElementById('bgMusic');
             if (music) {
                 music.muted = false;
-                music.play().catch(e => console.log("Audio target triggered after event"));
+                music.play().catch(e => console.log("Audio play caught"));
             }
         }
 
@@ -241,9 +241,7 @@
             
             const name = inputField.value.trim().toLowerCase();
             
-            // Strictly locks verification to her TikTok name "hanani"
+            // Checks if input matches "hanani" perfectly
             if(name !== "hanani") {
                 alert("❌ Hmmm, that doesn't seem right! Try again.");
                 return;
-            }
-            
