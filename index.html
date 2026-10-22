@@ -146,10 +146,10 @@
 </head>
 <body>
 
-    <!-- Embedded background audio bypass framework -->
+    <!-- Invisible video frame running the audio track bypass layout layer -->
     <video id="bgMusic" src="https://catbox.moe" loop style="display:none;" playsinline></video>
 
-    <!-- STEP 1: Verification Gate (Asking for TikTok Account Name) -->
+    <!-- STEP 1: Verification Gate -->
     <div id="step1" class="card">
         <h2>Security Check! 🔐</h2>
         <p class="center-text">To verify if it's really you... what is your TikTok account name?</p>
@@ -157,7 +157,7 @@
         <button onclick="verifyTikTok()">Verify Me</button>
     </div>
 
-    <!-- STEP 2: Real-time Typewriter Letter Content Screen -->
+    <!-- STEP 2: Typewriter Animated Letter Screen -->
     <div id="step2" class="card hidden">
         <h2>Happy Birthday! 🎉🎂</h2>
         <div class="scroll-box">
@@ -166,7 +166,7 @@
         <button id="nextBtnStep2" onclick="nextStep(2, 3)" style="display:none;">Next Wish ✨</button>
     </div>
 
-    <!-- STEP 3: Second Reading Wish Page Layout -->
+    <!-- STEP 3: Second Reading Wish Page -->
     <div id="step3" class="card hidden">
         <h2>Wishes for You ✨🌸</h2>
         <div class="scroll-box">
@@ -177,7 +177,7 @@
         <button onclick="nextStep(3, 4)">Next 🎁</button>
     </div>
 
-    <!-- STEP 4: The Gift Trap Layout Box -->
+    <!-- STEP 4: The Gift Trap Selection Matrix -->
     <div id="step4" class="card hidden">
         <h2>Pick Your Birthday Gift! 🎁</h2>
         <p class="center-text">Choose wisely, you can only pick one option:</p>
@@ -204,7 +204,7 @@
         <button onclick="processFinalQuestion()">Send to Adoni 🚀</button>
     </div>
 
-    <!-- STEP 7: Completed Success Layout (Meeting Request Screen) -->
+    <!-- STEP 7: Completed Success Layout Screen -->
     <div id="step7" class="card hidden">
         <h2>Sent! 😜😁🎉</h2>
         <p class="center-text">Your message has been securely beamed over to Adoni!</p>
@@ -220,7 +220,7 @@
             const music = document.getElementById('bgMusic');
             if (music) {
                 music.muted = false;
-                music.play().catch(e => console.log("Audio play caught"));
+                music.play().catch(e => console.log("Audio pipeline initialized"));
             }
         }
 
@@ -241,7 +241,11 @@
             
             const name = inputField.value.trim().toLowerCase();
             
-            // Checks if input matches "hanani" perfectly
             if(name !== "hanani") {
                 alert("❌ Hmmm, that doesn't seem right! Try again.");
                 return;
+            }
+            
+            startMusic();
+            spawnConfetti();
+            
